@@ -1,7 +1,12 @@
 class Account
-  attr_reader :balance
+  attr_reader :name, :balance
 
-  def initialize
+  def initialize name
+    @name = name
     @balance = 0
+  end
+
+  def deposit amount
+    @balance += amount
   end
 end

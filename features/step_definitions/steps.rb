@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 Given /^(\w*) has an account containing £(\d+)$/ do |name, balance|
-  bank.create_account "Fred"
+  account = bank.create_account name
+  account.deposit balance
 end
 
 Then /^(\w*)'s account balance should be £(\d+)$/ do |name, balance|
