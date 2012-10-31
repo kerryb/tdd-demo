@@ -28,18 +28,15 @@ describe Bank do
   end
 
   describe "#transfer" do
+    let(:transfer_service) { TransferService.new }
     before do
+      bank.transfer_service = transfer_service
       bank.create_account "fred"
       bank.create_account "bob"
     end
 
-    it "withdraws the amount from the source account" do
-      fred_account.should_receive(:withdraw).with(50)
-      bank.transfer "fred", "bob", 50
-    end
-
-    it "deposits the amount in the source account" do
-      bob_account.should_receive(:deposit).with(50)
+    it "uses a service to make the transfer" do
+      transfer_service.should_receive(:transfer).with(fred_account, bob_account, 50)
       bank.transfer "fred", "bob", 50
     end
   end
