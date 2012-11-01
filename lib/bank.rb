@@ -11,6 +11,11 @@ class Bank
     accounts.fetch(name) { raise NoAccountError }
   end
 
+  def transfer from, to, amount
+    accounts[from].withdraw amount
+    accounts[to].deposit amount
+  end
+
   private
 
   def accounts
