@@ -28,7 +28,10 @@ describe Bank do
   end
 
   describe "#transfer" do
+    let(:transfer_service) { stub :transfer_service }
+
     before do
+      bank.transfer_service = transfer_service
       bank.create_account "fred"
       bank.create_account "bob"
     end
@@ -37,13 +40,8 @@ describe Bank do
       bank.transfer "fred", "bob", 10
     end
 
-    it "withdraws the amount from the source account" do
-      fred_account.should_receive(:withdraw).with(10)
-      do_transfer
-    end
-
-    it "deposits the amount in the destination account" do
-      bob_account.should_receive(:deposit).with(10)
+    it "transfers between the named accounts" do
+      transfer_service.should_receive(:transfer).with(fred_account, bob_account, 10)
       do_transfer
     end
   end
