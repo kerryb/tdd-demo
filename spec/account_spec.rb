@@ -12,4 +12,10 @@ describe Account do
       expect { account.deposit 42 }.to change { account.balance }.by 42
     end
   end
+
+  describe "#withdraw" do
+    it "decreases the balance" do
+      expect { account.withdraw 42 }.to change { account.balance }.by -42
+    end
+  end
 end
